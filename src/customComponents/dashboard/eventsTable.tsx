@@ -21,38 +21,13 @@ const DashboardTable = (props: DashboardTableProps) => {
   useEffect(() => {
     setLoading(true);
     const handleData = () => {
-      const params: APIparameters = {
-        limit: 10,
-        category:
-          tableFilter.category === "all" ? undefined : tableFilter.category,
-        "start.lte": tableFilter.endDate
-          ? moment(tableFilter.endDate).format("YYYY-MM-DD")
-          : undefined,
-        "start.gte": tableFilter.startDate
-          ? moment(tableFilter.startDate).format("YYYY-MM-DD")
-          : undefined,
-        offset: 0,
-      };
-
-      setTableData(params);
+      setTableData();
     };
     handleData();
-  }, [tableFilter.category, tableFilter.startDate, tableFilter.endDate]);
+  }, [tableFilter.category]);
 
   const fetchMoreData = () => {
-    const params = {
-      limit: 10,
-      category:
-        tableFilter.category === "all" ? undefined : tableFilter.category,
-      "start.lte": tableFilter.endDate
-        ? moment(tableFilter.endDate).format("YYYY-MM-DD")
-        : undefined,
-      "start.gte": tableFilter.startDate
-        ? moment(tableFilter.startDate).format("YYYY-MM-DD")
-        : undefined,
-      offset: ((tableFilter.page || 0) + 1) * 10 - 10,
-    };
-    setTableData(params);
+    setTableData();
   };
 
   return (
@@ -69,7 +44,7 @@ const DashboardTable = (props: DashboardTableProps) => {
         height={464}
         dataLength={tableData.length}
         next={fetchMoreData}
-        hasMore={true}
+        hasMore={false}
         loader={
           <div className="flex justify-center my-3">
             <CircularProgress />
@@ -90,11 +65,6 @@ const DashboardTable = (props: DashboardTableProps) => {
           <div className="col-span-1 font-[600]"></div>
           <hr className="h-px border-[#6A6A6A] col-span-7" />
           <div className="col-span-7 xl:min-w-[650px]">
-            {tableData.length === 0 ? (
-              <div className="xl:min-w-[890px] overflow-hidden">
-                <TableSkeleton />
-              </div>
-            ) : null}
             {tableData.map((row: any, index: number) => (
               <div
                 onClick={() => {

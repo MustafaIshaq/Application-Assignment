@@ -12,7 +12,7 @@ const DashboardTab = (props: DashboardTabProps) => {
   return (
     <div className="flex flex-col w-screen xl:w-[100%] h-[100%]">
       <div className="flex flex-col-reverse xl:flex-row w-full">
-        <div className="xl:mr-5">
+        <div className="xl:mr-5 w-full">
           <div className="m-2 xl:m-0">
             <DashboardTable />
           </div>

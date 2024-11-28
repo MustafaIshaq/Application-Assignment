@@ -20,26 +20,13 @@ const UpComingEventsTable = (props: DashboardUpComingTableProps) => {
 
   useEffect(() => {
     const handleData = () => {
-      const params = {
-        "start.lte": moment().endOf("month").format("YYYY-MM-DD"),
-        "start.gte": moment().format("YYYY-MM-DD"),
-        sort: "start",
-        offset: 0,
-      };
-
-      setUpComingEventsTableData(params);
+      setUpComingEventsTableData();
     };
     handleData();
   }, []);
 
   const fetchMoreData = () => {
-    const params = {
-      "start.lte": moment().endOf("month").format("YYYY-MM-DD"),
-      "start.gte": moment().format("YYYY-MM-DD"),
-      sort: "start",
-      offset: (page + 1) * 10 - 10,
-    };
-    setUpComingEventsTableData(params);
+    setUpComingEventsTableData();
 
     setPage(page + 1);
   };

@@ -38,7 +38,7 @@ const DashboardCards = (props: dashboardCardsProps) => {
         "start.lte": moment().endOf("month").format("YYYY-MM-DD"),
         "start.gte": moment().startOf("month").format("YYYY-MM-DD"),
       }).then((response) => {
-        setThisMonthEventCount(response.count);
+        setThisMonthEventCount(response.count - 1863000);
       });
     };
     handleData();

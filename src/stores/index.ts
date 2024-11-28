@@ -5,9 +5,9 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 interface Store {
   tableData: Event[];
-  setTableData: (parameters: APIparameters) => void;
+  setTableData: () => void;
   upComingEventsTableData: Event[];
-  setUpComingEventsTableData: (parameters: APIparameters) => void;
+  setUpComingEventsTableData: () => void;
   favouriteEvents: Event[];
   setFavouriteEvents: (parameters: Event[]) => void;
   tableFilter: APIparameters;
@@ -20,24 +20,23 @@ const useStore = create<Store>()(
   persist(
     (set) => ({
       tableData: [],
-      setTableData: (parameters: APIparameters) => {
-        getData(parameters).then((response) => {
+      setTableData: () => {
+        getData().then((response) => {
           set((state) => ({
-            tableData:
-              parameters.offset === 0
-                ? response.results
-                : [...state.tableData, ...response.results],
+            tableData: response.results.filter((event) => {
+              return (
+                state.tableFilter.category === "all" ||
+                state.tableFilter.category === event.category
+              );
+            }),
           }));
         });
       },
       upComingEventsTableData: [],
-      setUpComingEventsTableData: (parameters: APIparameters) => {
-        getData(parameters).then((response) => {
+      setUpComingEventsTableData: () => {
+        getData().then((response) => {
           set((state) => ({
-            upComingEventsTableData: [
-              ...state.upComingEventsTableData,
-              ...response.results,
-            ],
+            upComingEventsTableData: response.results.slice(0, 10),
           }));
         });
       },
@@ -57,8 +56,8 @@ const useStore = create<Store>()(
         }));
       },
       eventOfTheMonth: null,
-      setEventOfTheMonth: (parameters: APIparameters) => {
-        getData(parameters).then((response) => {
+      setEventOfTheMonth: () => {
+        getData().then((response) => {
           set({
             eventOfTheMonth: response.results[0],
           });

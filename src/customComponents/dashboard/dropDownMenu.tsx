@@ -24,11 +24,11 @@ export function DropdownMenuCheckboxes(props: DropdownMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex items-center bg-white border-white rounded-lg px-2 cursor-pointer">
+        <div className="flex items-center bg-white border-white rounded-lg px-2 cursor-pointer ">
           <ListEnd />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-auto">
+      <DropdownMenuContent className="w-auto min-w-64 p-5">
         <DropdownMenuLabel>Category</DropdownMenuLabel>
         <Select
           onValueChange={(e) => {
@@ -62,7 +62,7 @@ export function DropdownMenuCheckboxes(props: DropdownMenuProps) {
           </SelectContent>
         </Select>
 
-        <DropdownMenuLabel>Date</DropdownMenuLabel>
+        {/* <DropdownMenuLabel>Date</DropdownMenuLabel>
         <div className="flex md:flex-row flex-col m-2">
           <div>
             <span>From:</span>
@@ -84,7 +84,7 @@ export function DropdownMenuCheckboxes(props: DropdownMenuProps) {
               }}
             />
           </div>
-        </div>
+        </div> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
